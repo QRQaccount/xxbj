@@ -36,7 +36,7 @@ JavaScript 拥有一系列预定义的对象。另外，你可以创建你自己
 
 ### 使用对象的初始化器
 
-每一个 `property_i`是一个标识符,也可以是一个字面量,并且value_i是一个值将会被赋予property_i的表达式(可以是函数) .方便简洁,但无法重复创建
+每一个 property_i是一个标识符,也可以是一个字面量,并且value_i是一个值将会被赋予property_i的表达式(可以是函数) .方便简洁,但无法重复创建
 
 ```javascript
 value_1 = 1
@@ -116,13 +116,13 @@ class Polygon {
 
 ## JS中的继承
 
-JavaScript 是一种基于原型而不是基于类的面向对象语言。它与传统的基于类的面向对象的语言有本质的区别.可参考[对象模型的细节](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model).js的每一个被继承的对象称为原型(js在ES6中加入的class其实是一个语法糖,本质仍由原型继承来完成).继承的属性可以由构造函数的`property`属性直接找到.`property`属性可以使得对象具有可以扩展属性的能力
+JavaScript 是一种基于原型而不是基于类的面向对象语言。它与传统的基于类的面向对象的语言有本质的区别.可参考[对象模型的细节](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model).js的每一个被继承的对象称为原型(js在ES6中加入的class其实是一个语法糖,本质仍由原型继承来完成).继承的属性可以由构造函数的`prototype`属性直接找到.`prototype`属性可以使得对象具有可以扩展属性的能力
 
 ![](/home/qrq/文档/xxbj/js基础/img/继承链图像.jpg)
 
 1. 对于js的继承来说,只有一个结构对象.
 
-2. 每个对象都有一个私有属性`_proto_`指向它的构造函数的原型对象`property`,该原型对象也有一`_proto_`对象指向上一个,直到最后的`null`为止.称为原型链
+2. 每个对象都有一个私有属性`_proto_`指向它的构造函数的原型对象`prototype`,该原型对象也有一`_proto_`对象指向上一个,直到最后的`null`为止.称为原型链
 
 3. 属性的继承,当访问一个对象的属性时候发生的事情
 
@@ -290,6 +290,3 @@ JavaScript 是一种基于原型而不是基于类的面向对象语言。它与
 
    
 
-   
-
-## 
