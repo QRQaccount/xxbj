@@ -2,7 +2,7 @@
 
 ## 同步与异步
 
-![](/home/qrq/文档/xxbj/js基础/img/同步与异步.png)
+![](https://github.com/QRQaccount/xxbj/blob/master/js%E5%9F%BA%E7%A1%80/img/%E5%90%8C%E6%AD%A5%E4%B8%8E%E5%BC%82%E6%AD%A5.png)
 
 - 同步:在执行时如果执行函数需要等待,则会一直等待到函数处理完再继续执行后面的程序
 - 异步:执行完函数或方法后，不必阻塞性地等待返回值或消息，只需要向系统委托一个异步过程，那么当系统接收到返回值或消息时，系统会自动触发委托的异步过程，从而完成一个完整的流程。 
@@ -19,9 +19,9 @@ js是单线程的,因为浏览器在运行时只开启了一个JS引擎线程来
 
 ## 消息队列与事件循环
 
-![](/home/qrq/文档/xxbj/js基础/img/消息队列与事件循环.png)
+![](https://github.com/QRQaccount/xxbj/blob/master/js%E5%9F%BA%E7%A1%80/img/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E4%B8%8E%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.png)
 
-主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在"任务队列"中加入各种事件（click，load，done）。当栈中的代码优先执行完，主线程就会去读取"任务队列"，依次执行那些事件所对应的回调函数。执行栈中的代码（同步任务），总是在读取"任务队列"（异步任务）之前执行。JS引擎线程从消息队列中读取任务是不断循环的，每次栈被清空后，都会在消息队列中读取新的任务，如果没有新的任务，就会等待，直到有新的任务，这就叫事件循环。![](/home/qrq/文档/xxbj/js基础/img/nodejs事件循环.png)
+主线程运行的时候，产生堆（heap）和栈（stack），栈中的代码调用各种外部API，它们在"任务队列"中加入各种事件（click，load，done）。当栈中的代码优先执行完，主线程就会去读取"任务队列"，依次执行那些事件所对应的回调函数。执行栈中的代码（同步任务），总是在读取"任务队列"（异步任务）之前执行。JS引擎线程从消息队列中读取任务是不断循环的，每次栈被清空后，都会在消息队列中读取新的任务，如果没有新的任务，就会等待，直到有新的任务，这就叫事件循环。![](https://github.com/QRQaccount/xxbj/blob/master/js%E5%9F%BA%E7%A1%80/img/nodejs%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF.png)
 
 1. V8引擎解析JavaScript脚本。
 2. 解析后的代码，调用Node API
@@ -38,7 +38,7 @@ js是单线程的,因为浏览器在运行时只开启了一个JS引擎线程来
 - fulfilled: 意味着操作成功完成
 - rejected: 意味着操作失败
 
-pending 状态的 Promise 对象可能会变为fulfilled 状态并传递一个值给相应的状态处理方法，也可能变为失败状态（rejected）并传递失败信息。当其中任一种情况出现时，Promise 对象的 `then` 方法绑定的处理方法（handlers ）就会被调用（then方法包含两个参数：onfulfilled 和 onrejected，它们都是 Function 类型。当Promise状态为*fulfilled*时，调用 then 的 onfulfilled 方法，当Promise状态为*rejected*时，调用 then 的 onrejected 方法， 所以在异步操作的完成和绑定处理方法之间不存在竞争）。<br/>因为 `Promise.prototype.then` 和  `Promise.prototype.catch` 方法返回promise 对象， 所以它们可以被链式调用。![](/home/qrq/文档/xxbj/js基础/img/promises_then_catch.png)
+pending 状态的 Promise 对象可能会变为fulfilled 状态并传递一个值给相应的状态处理方法，也可能变为失败状态（rejected）并传递失败信息。当其中任一种情况出现时，Promise 对象的 `then` 方法绑定的处理方法（handlers ）就会被调用（then方法包含两个参数：onfulfilled 和 onrejected，它们都是 Function 类型。当Promise状态为*fulfilled*时，调用 then 的 onfulfilled 方法，当Promise状态为*rejected*时，调用 then 的 onrejected 方法， 所以在异步操作的完成和绑定处理方法之间不存在竞争）。<br/>因为 `Promise.prototype.then` 和  `Promise.prototype.catch` 方法返回promise 对象， 所以它们可以被链式调用。![](https://github.com/QRQaccount/xxbj/blob/master/js%E5%9F%BA%E7%A1%80/img/promises_then_catch.png)
 
 ### Promise的方法
 
