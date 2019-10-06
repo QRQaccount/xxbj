@@ -15,10 +15,14 @@ var obj = {
     }
 }
 
+function func() {
+    console.log("this is a function")
+}
 //使用构造函数构造对象
 function Obj2(value_1, value_2) {
     this.property_1 = value_1
     this.property_2 = value_2
+    this.func = func
     this.e = 10
 }
 
@@ -26,25 +30,31 @@ Obj2.prototype.func_1 = function () {
     console.log("hello world")
     console.log(this.property_1 + this.property_2)
 }
+var obj2 = new Obj2(3, 4)
+
 
 //
 // 让我们从一个自身拥有属性a和b的函数里创建一个对象o：
 let f = function () {
     this.a = 1;
     this.b = 2;
+    // Obj2.call(this)
 }
+
 /* 这么写也一样
 function f() {
   this.a = 1;
   this.b = 2;
 }
 */
+//继承写法二 
+f.prototype = Object.create(obj2)
+f.prototype.constructor = f
 let o = new f(); // {a: 1, b: 2}
 
 // 在f函数的原型上定义属性
 f.prototype.b = 3;
 f.prototype.c = 4;
-f.prototype = Obj2(4, 5)
 // 不要在 f 函数的原型上直接定义 f.prototype = {b:3,c:4};这样会直接打破原型链
 // o.[[Prototype]] 有属性 b 和 c
 //  (其实就是 o.__proto__ 或者 o.constructor.prototype)
@@ -69,7 +79,7 @@ console.log(o.c); // 4
 // c是o的自身属性吗？不是，那看看它的原型上有没有
 // c是o.[[Prototype]]的属性吗？是的，该属性的值为 4
 
-console.log(o.d); // undefined
+console.log(o.e); // undefined
 // d 是 o 的自身属性吗？不是，那看看它的原型上有没有
 // d 是 o.[[Prototype]] 的属性吗？不是，那看看它的原型上有没有
 // o.[[Prototype]].[[Prototype]] 为 null，停止搜索

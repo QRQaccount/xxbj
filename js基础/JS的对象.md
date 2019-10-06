@@ -143,6 +143,7 @@ JavaScript 是一种基于原型而不是基于类的面向对象语言。它与
    let f = function () {
        this.a = 1;
        this.b = 2;
+       Obj2.call(this)
     }
     /* 这么写也一样
     function f() {
@@ -155,8 +156,8 @@ JavaScript 是一种基于原型而不是基于类的面向对象语言。它与
     // 在f函数的原型上定义属性
     f.prototype.b = 3;
     f.prototype.c = 4;
-    // 继承Obj2
-    f.prototype = Obj2(4,5)
+    
+   
     // 不要在 f 函数的原型上直接定义 f.prototype = {b:3,c:4};这样会直接打破原型链
     // o.[[Prototype]] 有属性 b 和 c
     //  在浏览器中的实现为 o.__proto__ 或者 o.constructor.prototype
@@ -190,103 +191,105 @@ JavaScript 是一种基于原型而不是基于类的面向对象语言。它与
 
 ### 不同的创建对象的方式的继承写法
 
-1. 使用构造函数创建对象时
+#### 使用构造函数创建对象时
 
-   ```javascript
-   function Graph() {
-     this.vertices = [];
-     this.edges = [];
-   }
-   
-   Graph.prototype = {
-     addVertex: function(v){
-       this.vertices.push(v);
-     }
-   };
-   
-   var g = new Graph();
-   // g 是生成的对象，他的自身属性有 'vertices' 和 'edges'。
-   ```
+```javascript
+function Graph() {
+  this.vertices = [];
+  this.edges = [];
+}
 
-   
+Graph.prototype = {
+  addVertex: function(v){
+    this.vertices.push(v);
+  }
+};
 
-2. 使用Object.create()创建时
+var g = new Graph();
+// g 是生成的对象，他的自身属性有 'vertices' 和 'edges'。
+```
 
-   ```javascript
-   var a = {a: 1}; 
-   // a ---> Object.prototype ---> null
-   
-   var b = Object.create(a);
-   // b ---> a ---> Object.prototype ---> null
-   console.log(b.a); // 1 (继承而来)
-   
-   var c = Object.create(b);
-   // c ---> b ---> a ---> Object.prototype ---> null
-   
-   var d = Object.create(null);
-   // d ---> null
-   console.log(d.hasOwnProperty); // undefined, 因为d没有继承Object.prototype
-   ```
 
-   
 
-3. 使用对象的初始化器创建时
+#### 使用Object.create()创建时
 
-   ```javascript
-   var o = {a: 1};
-   
-   // o 这个对象继承了 Object.prototype 上面的所有属性
-   // o 自身没有名为 hasOwnProperty 的属性
-   // hasOwnProperty 是 Object.prototype 的属性
-   // 因此 o 继承了 Object.prototype 的 hasOwnProperty
-   // Object.prototype 的原型为 null
-   // 原型链如下:
-   // o ---> Object.prototype ---> null
-   
-   var a = ["yo", "whadup", "?"];
-   
-   // 数组都继承于 Array.prototype 
-   // (Array.prototype 中包含 indexOf, forEach 等方法)
-   // 原型链如下:
-   // a ---> Array.prototype ---> Object.prototype ---> null
-   
-   function f(){
-     return 2;
-   }
-   
-   // 函数都继承于 Function.prototype
-   // (Function.prototype 中包含 call, bind等方法)
-   // 原型链如下:
-   // f ---> Function.prototype ---> Object.prototype ---> null
-   ```
+```javascript
+var a = {a: 1}; 
+// a ---> Object.prototype ---> null
 
-   
+var b = Object.create(a);
+// b ---> a ---> Object.prototype ---> null
+console.log(b.a); // 1 (继承而来)
 
-4. 使用class关键字的时候(许多浏览器还不支持)
+var c = Object.create(b);
+// c ---> b ---> a ---> Object.prototype ---> null
 
-   ```javascript
-   class Polygon {
-     constructor(height, width) {
-       this.height = height;
-       this.width = width;
-     }
-   }
-   
-   class Square extends Polygon {
-     constructor(sideLength) {
-       super(sideLength, sideLength);
-     }
-     get area() {
-       return this.height * this.width;
-     }
-     set sideLength(newLength) {
-       this.height = newLength;
-       this.width = newLength;
-     }
-   }
-   
-   var square = new Square(2);
-   ```
+var d = Object.create(null);
+// d ---> null
+console.log(d.hasOwnProperty); // undefined, 因为d没有继承Object.prototype
+```
 
-   
+
+
+#### 使用对象的初始化器创建时
+
+```javascript
+var o = {a: 1};
+
+// o 这个对象继承了 Object.prototype 上面的所有属性
+// o 自身没有名为 hasOwnProperty 的属性
+// hasOwnProperty 是 Object.prototype 的属性
+// 因此 o 继承了 Object.prototype 的 hasOwnProperty
+// Object.prototype 的原型为 null
+// 原型链如下:
+// o ---> Object.prototype ---> null
+
+var a = ["yo", "whadup", "?"];
+
+// 数组都继承于 Array.prototype 
+// (Array.prototype 中包含 indexOf, forEach 等方法)
+// 原型链如下:
+// a ---> Array.prototype ---> Object.prototype ---> null
+
+function f(){
+  return 2;
+}
+
+// 函数都继承于 Function.prototype
+// (Function.prototype 中包含 call, bind等方法)
+// 原型链如下:
+// f ---> Function.prototype ---> Object.prototype ---> null
+```
+
+
+
+#### 使用class关键字的时候(许多浏览器还不支持)
+
+```javascript
+class Polygon {
+  constructor(height, width) {
+    this.height = height;
+    this.width = width;
+  }
+}
+
+class Square extends Polygon {
+  constructor(sideLength) {
+    super(sideLength, sideLength);
+  }
+  get area() {
+    return this.height * this.width;
+  }
+  set sideLength(newLength) {
+    this.height = newLength;
+    this.width = newLength;
+  }
+}
+
+var square = new Square(2);
+```
+
+
+
+## 
 

@@ -60,3 +60,7 @@ pending 状态的 Promise 对象可能会变为fulfilled 状态并传递一个�
 ### Promise的创建
 
 `Promise` 对象是由关键字 `new` 及其构造函数来创建的。该构造函数会把一个叫做“处理器函数”（executor function）的函数作为它的参数。这个“处理器函数”接受两个函数——`resolve` 和 `reject` ——作为其参数。当异步任务顺利完成且返回结果值时，会调用 `resolve` 函数；而当异步任务失败且返回失败原因（通常是一个错误对象）时，会调用`reject` 函数。
+
+### 例子
+
+参见src
