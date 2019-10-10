@@ -291,5 +291,3 @@ var square = new Square(2);
 
 
 
-## 
-
