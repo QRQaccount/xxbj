@@ -2,7 +2,6 @@
 
 ## 同步与异步
 
-
 ![](./img/同步与异步.png)
 
 - 同步:在执行时如果执行函数需要等待,则会一直等待到函数处理完再继续执行后面的程序
@@ -19,7 +18,6 @@ js是单线程的,因为浏览器在运行时只开启了一个JS引擎线程来
 - 异步http请求线程：处理http请求
 
 ## 消息队列与事件循环
-
 
 ![](./img/消息队列与事件循环.png)
 
@@ -54,8 +52,6 @@ pending 状态的 Promise 对象可能会变为fulfilled 状态并传递一个�
 1. Promise.prototype.catch(onRejected)<br>添加一个拒绝(rejection) 回调到当前 promise, 返回一个新的promise。当这个回调函数被调用，新 promise 将以它的返回值来resolve，否则如果当前promise 进入fulfilled状态，则以当前promise的完成结果作为新promise的完成结果.
 2. Promise.prototype.then(onFulfilled, onRejected)<br>添加解决(fulfillment)和拒绝(rejection)回调到当前 promise, 返回一个新的 promise, 将以回调的返回值来resolve.
 3. Promise.prototype.finally(onFinally)<br>添加一个事件处理回调于当前promise对象，并且在原promise对象解析完毕后，返回一个新的promise对象。回调会在当前promise运行完毕后被调用，无论当前promise的状态是完成(fulfilled)还是失败(rejected)
-
-
 
 ### Promise的创建
 

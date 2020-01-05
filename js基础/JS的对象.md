@@ -28,8 +28,6 @@ object.value = 10
 2. Object.keys(o) 方法返回一个对象o(不包含原型)的所有属性的名称的数组
 3. Object.getOwnPropertyNames(o) 返回一个对象o的所有属性的**名称**
 
-
-
 ## 对象的创建
 
 JavaScript 拥有一系列预定义的对象。另外，你可以创建你自己的对象。
@@ -45,7 +43,7 @@ value_3 = 3
 value_4 = 4
 
 var obj = {
-	property_1:value_1,//property为一个标识符
+    property_1:value_1,//property为一个标识符
     123:value_2,//property为一个Number
     ["property_"+3]:value_3,//property为一个可计算的key名
     "property_4":value_4,//property为一个字符串
@@ -59,10 +57,7 @@ var obj = {
         console.log("hello world")
     }
 }
-
 ```
-
-
 
 ### 使用构造函数
 
@@ -98,7 +93,6 @@ var Animal = {
 }
 
 var dog = Object.create(Animal)
-
 ```
 
 ### 使用class关键字
@@ -109,23 +103,20 @@ class Polygon {
         this.name = "Polygon";
     }
 }
-
 ```
-
-
 
 ## JS中的继承
 
 JavaScript 是一种基于原型而不是基于类的面向对象语言。它与传统的基于类的面向对象的语言有本质的区别.可参考[对象模型的细节](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Details_of_the_Object_Model).js的每一个被继承的对象称为原型(js在ES6中加入的class其实是一个语法糖,本质仍由原型继承来完成).继承的属性可以由构造函数的`prototype`属性直接找到.`prototype`属性可以使得对象具有可以扩展属性的能力
 
-![](/home/qrq/文档/xxbj/js基础/img/继承链图像.jpg)
+![](/home/qrq/Documents/xxbj/js基础/img/继承链图像.jpg)
 
 1. 对于js的继承来说,只有一个结构对象.
 
 2. 每个对象都有一个私有属性`_proto_`指向它的构造函数的原型对象`prototype`,该原型对象也有一`_proto_`对象指向上一个,直到最后的`null`为止.称为原型链
 
 3. 属性的继承,当访问一个对象的属性时候发生的事情
-
+   
    ```javascript
    function Obj2(value_1,value_2){
        this.property_1 = value_1
@@ -152,40 +143,41 @@ JavaScript 是一种基于原型而不是基于类的面向对象语言。它与
     }
     */
     let o = new f(); // {a: 1, b: 2}
-    
+   
     // 在f函数的原型上定义属性
     f.prototype.b = 3;
     f.prototype.c = 4;
-    
-   
-    // 不要在 f 函数的原型上直接定义 f.prototype = {b:3,c:4};这样会直接打破原型链
-    // o.[[Prototype]] 有属性 b 和 c
-    //  在浏览器中的实现为 o.__proto__ 或者 o.constructor.prototype
-    // o.[[Prototype]].[[Prototype]] 是 Obj2.
-    // 最后o.[[Prototype]].[[Prototype]].[[Prototype]].[[Prototype]]是null
-    // 这就是原型链的末尾，即 null，
-    // 根据定义，null 就是没有 [[Prototype]]。
-    
-    
-    console.log(o.a); // 1
-    // a是o的自身属性吗？是的，该属性的值为 1
-    
-    console.log(o.b); // 2
-    // b是o的自身属性吗？是的，该属性的值为 2
-    // 原型上也有一个'b'属性，但是它不会被访问到。
-    // 这种情况被称为"属性遮蔽 (property shadowing)"
-    
-    console.log(o.c); // 4
-    // c是o的自身属性吗？不是，那看看它的原型上有没有
-    // c是o.[[Prototype]]的属性吗？是的，该属性的值为 4
-    
-    console.log(o.d); // undefined
-    // d 是 o 的自身属性吗？不是，那看看它的原型上有没有
-    // d 是 o.[[Prototype]] 的属性吗？不是，那看看它的原型上有没有
-    // o.[[Prototype]].[[Prototype]] 为 Object，
-    // o.[[Prototype]].[[Prototype]].[[Prototype]]的property指向null停止搜索
-    // 找不到 d 属性，返回 undefined
    ```
+
+```js
+// 不要在 f 函数的原型上直接定义 f.prototype = {b:3,c:4};这样会直接打破原型链
+// o.[[Prototype]] 有属性 b 和 c
+//  在浏览器中的实现为 o.__proto__ 或者 o.constructor.prototype
+// o.[[Prototype]].[[Prototype]] 是 Obj2.
+// 最后o.[[Prototype]].[[Prototype]].[[Prototype]].[[Prototype]]是null
+// 这就是原型链的末尾，即 null，
+// 根据定义，null 就是没有 [[Prototype]]。
+
+
+console.log(o.a); // 1
+// a是o的自身属性吗？是的，该属性的值为 1
+
+console.log(o.b); // 2
+// b是o的自身属性吗？是的，该属性的值为 2
+// 原型上也有一个'b'属性，但是它不会被访问到。
+// 这种情况被称为"属性遮蔽 (property shadowing)"
+
+console.log(o.c); // 4
+// c是o的自身属性吗？不是，那看看它的原型上有没有
+// c是o.[[Prototype]]的属性吗？是的，该属性的值为 4
+
+console.log(o.d); // undefined
+// d 是 o 的自身属性吗？不是，那看看它的原型上有没有
+// d 是 o.[[Prototype]] 的属性吗？不是，那看看它的原型上有没有
+// o.[[Prototype]].[[Prototype]] 为 Object，
+// o.[[Prototype]].[[Prototype]].[[Prototype]]的property指向null停止搜索
+// 找不到 d 属性，返回 undefined
+```
 
 4. 方法的继承,在js中,对象的方法是以属性的形式绑定在对象上的.继承模式与属性一致
 
@@ -209,8 +201,6 @@ var g = new Graph();
 // g 是生成的对象，他的自身属性有 'vertices' 和 'edges'。
 ```
 
-
-
 #### 使用Object.create()创建时
 
 ```javascript
@@ -228,8 +218,6 @@ var d = Object.create(null);
 // d ---> null
 console.log(d.hasOwnProperty); // undefined, 因为d没有继承Object.prototype
 ```
-
-
 
 #### 使用对象的初始化器创建时
 
@@ -261,8 +249,6 @@ function f(){
 // f ---> Function.prototype ---> Object.prototype ---> null
 ```
 
-
-
 #### 使用class关键字的时候(许多浏览器还不支持)
 
 ```javascript
@@ -288,6 +274,3 @@ class Square extends Polygon {
 
 var square = new Square(2);
 ```
-
-
-

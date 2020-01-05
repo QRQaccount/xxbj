@@ -28,7 +28,7 @@
 
 ## 使用龙邱的库进行操作
 
-```
+```c
 int main(){
     PLL_Init(PLL180); // 初始化PLL为180Mhz BUS 90Mhz
     FTM_PWM_Init(FTM0,FTM_CH0,56250,28125); //从前到后 选择工作模式,通道选择,初始BUS时钟,占空比计算值 现在是100Mhz占空比是50%的设置
